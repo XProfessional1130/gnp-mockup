@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "df3c3cf4-4ee9-43b8-a00a-4be3d59860ea",
 		"name": "Ericsson End-Customer API",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
 		"_exporter_id": "45212651"
 	},
 	"item": [
@@ -53,34 +53,22 @@
 							"urlencoded": [
 								{
 									"key": "client_id",
-									"value": "",
+									"value": "client-1",
 									"type": "text"
 								},
 								{
 									"key": "client_secret",
-									"value": "",
+									"value": "encrypt",
 									"type": "text"
 								},
 								{
 									"key": "grant_type",
-									"value": "",
+									"value": "random",
 									"type": "text"
 								}
 							]
 						},
-						"url": {
-							"raw": "{{authUrl}}/realms/api-consumer/protocol/openid-connect/token",
-							"host": [
-								"{{authUrl}}"
-							],
-							"path": [
-								"realms",
-								"api-consumer",
-								"protocol",
-								"openid-connect",
-								"token"
-							]
-						}
+						"url": "{{authUrl}}/realms/api-consumer/protocol/openid-connect/token"
 					},
 					"response": []
 				}
@@ -103,7 +91,7 @@
 									"});\r",
 									"\r",
 									"pm.test(\"approvalStatus is pendingApproval\", function () {\r",
-									"    pm.expect(json.approvalStatus).to.eql(\"pendingApproval\");\r",
+									"    pm.expect(json.approvalStatus).to.eql(\"approve\");\r",
 									"});\r",
 									"\r",
 									"pm.test(\"id is returned\", function () {\r",
@@ -114,16 +102,21 @@
 								"type": "text/javascript",
 								"packages": {}
 							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
 						}
 					],
 					"request": {
 						"method": "POST",
 						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/x-www-form-urlencoded",
-								"type": "text"
-							},
 							{
 								"key": "X-PLMN",
 								"value": "mnc={{mnc}}, mcc={{mcc}}",
@@ -137,24 +130,14 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"@baseType\": \"PartyRole\",\r\n    \"@type\": \"ApplicationOwner\",\r\n    \"gnpMetaData\": {\r\n        \"cspId\": {{cspId}},\r\n        \"aspId\": {{appId}}\r\n    },\r\n    \"description\": \"Testing business profile\",\r\n    \"engagedParty\": {\r\n        \"@baseType\": \"Organization\",\r\n        \"@type\": \"ApplicationOwnerOrganization\",\r\n        \"contactMedium\": [\r\n            {\r\n                \"@type\": \"EmailContactMedium\",\r\n                \"contactType\": \"email\",\r\n                \"emailAddress\": \"private_data_not_informed@consumer.com\",\r\n                \"id\": \"contact_medium\",\r\n                \"preferred\": true\r\n            }\r\n        ],\r\n        \"dataProtectionOfficer\": {\r\n            \"@type\": \"ApplicationOwnerRelatedOrganization\",\r\n            \"contactMedium\": [\r\n                {\r\n                    \"@type\": \"EmailContactMedium\",\r\n                    \"contactType\": \"email\",\r\n                    \"emailAddress\": \"dpo@test.com\",\r\n                    \"id\": \"dpo\",\r\n                    \"preferred\": true\r\n                }\r\n            ],\r\n            \"name\": \"DPO Office\",\r\n            \"organizationType\": \"department\"\r\n        },\r\n        \"name\": \"Testing business profile\",\r\n        \"organizationIdentification\": [\r\n            {\r\n                \"@type\": \"OrganizationIdentification\",\r\n                \"identificationId\": \"not-provided\"\r\n            }\r\n        ],\r\n        \"organizationType\": \"dpv:ForProfitOrganisation \",\r\n        \"privacyManager\": {\r\n            \"@type\": \"ApplicationOwnerRelatedOrganization\",\r\n            \"contactMedium\": [\r\n                {\r\n                    \"@type\": \"EmailContactMedium\",\r\n                    \"contactType\": \"email\",\r\n                    \"emailAddress\": \"manager@test.com\",\r\n                    \"id\": \"privacy_manager\",\r\n                    \"preferred\": true\r\n                }\r\n            ],\r\n            \"name\": \"Privacy Office\",\r\n            \"organizationType\": \"department\"\r\n        },\r\n        \"privacyPolicyURL\": \"https://1LThiQzd.com\",\r\n        \"registeredGeographicAddress\": {\r\n            \"@baseType\": \"GeographicAddress\",\r\n            \"@type\": \"LightGeographicAddress\",\r\n            \"city\": \"Madrid\",\r\n            \"countryCode\": {\r\n                \"@baseType\": \"StandardIdentifier\",\r\n                \"@type\": \"ISO31661Alpha2StandardIdentifier\",\r\n                \"value\": \"ES\"\r\n            },\r\n            \"locality\": \"Madrid\",\r\n            \"postcode\": \"28020\",\r\n            \"stateOrProvince\": \"Madrid\",\r\n            \"streetName\": \"address 1 address 2\",\r\n            \"streetNr\": \"not informed\"\r\n        },\r\n        \"taxNumber\": \"1234567890-2\",\r\n        \"tradingName\": \"Testing business profile\"\r\n    },\r\n    \"name\": \"Testing business profile\"\r\n}",
+							"raw": "{\r\n    \"@baseType\": \"PartyRole\",\r\n    \"@type\": \"ApplicationOwner\",\r\n    \"gnpMetaData\": {\r\n        \"cspId\": \"{{cspId}}\",\r\n        \"aspId\": \"{{appId}}\"\r\n    },\r\n    \"description\": \"Testing business profile\",\r\n    \"engagedParty\": {\r\n        \"@baseType\": \"Organization\",\r\n        \"@type\": \"ApplicationOwnerOrganization\",\r\n        \"contactMedium\": [\r\n            {\r\n                \"@type\": \"EmailContactMedium\",\r\n                \"contactType\": \"email\",\r\n                \"emailAddress\": \"private_data_not_informed@consumer.com\",\r\n                \"id\": \"contact_medium\",\r\n                \"preferred\": true\r\n            }\r\n        ],\r\n        \"dataProtectionOfficer\": {\r\n            \"@type\": \"ApplicationOwnerRelatedOrganization\",\r\n            \"contactMedium\": [\r\n                {\r\n                    \"@type\": \"EmailContactMedium\",\r\n                    \"contactType\": \"email\",\r\n                    \"emailAddress\": \"dpo@test.com\",\r\n                    \"id\": \"dpo\",\r\n                    \"preferred\": true\r\n                }\r\n            ],\r\n            \"name\": \"DPO Office\",\r\n            \"organizationType\": \"department\"\r\n        },\r\n        \"name\": \"Testing business profile\",\r\n        \"organizationIdentification\": [\r\n            {\r\n                \"@type\": \"OrganizationIdentification\",\r\n                \"identificationId\": \"not-provided\"\r\n            }\r\n        ],\r\n        \"organizationType\": \"dpv:ForProfitOrganisation \",\r\n        \"privacyManager\": {\r\n            \"@type\": \"ApplicationOwnerRelatedOrganization\",\r\n            \"contactMedium\": [\r\n                {\r\n                    \"@type\": \"EmailContactMedium\",\r\n                    \"contactType\": \"email\",\r\n                    \"emailAddress\": \"manager@test.com\",\r\n                    \"id\": \"privacy_manager\",\r\n                    \"preferred\": true\r\n                }\r\n            ],\r\n            \"name\": \"Privacy Office\",\r\n            \"organizationType\": \"department\"\r\n        },\r\n        \"privacyPolicyURL\": \"https://1LThiQzd.com\",\r\n        \"registeredGeographicAddress\": {\r\n            \"@baseType\": \"GeographicAddress\",\r\n            \"@type\": \"LightGeographicAddress\",\r\n            \"city\": \"Madrid\",\r\n            \"countryCode\": {\r\n                \"@baseType\": \"StandardIdentifier\",\r\n                \"@type\": \"ISO31661Alpha2StandardIdentifier\",\r\n                \"value\": \"ES\"\r\n            },\r\n            \"locality\": \"Madrid\",\r\n            \"postcode\": \"28020\",\r\n            \"stateOrProvince\": \"Madrid\",\r\n            \"streetName\": \"address 1 address 2\",\r\n            \"streetNr\": \"not informed\"\r\n        },\r\n        \"taxNumber\": \"1234567890-2\",\r\n        \"tradingName\": \"Testing business profile\"\r\n    },\r\n    \"name\": \"Testing business profile\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": {
-							"raw": "{{baseUrl}}/v2/operate/applicationOwner",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"v2",
-								"operate",
-								"applicationOwner"
-							]
-						}
+						"url": "{{baseUrl}}/v2/operate/applicationOwner"
 					},
 					"response": []
 				},
@@ -178,28 +161,28 @@
 					],
 					"request": {
 						"method": "PATCH",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{bearerToken}}",
+								"type": "text"
+							},
+							{
+								"key": "X-PLMN",
+								"value": "mnc={{mnc}},mcc={{mcc}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"@type\": \"ApplicationOwner\",\r\n    \"gnpMetaData\": {\r\n        \"cspId\": {{cspId}},\r\n        \"aspId\": {{aspId}}\r\n    },\r\n    \"engagedParty\": {\r\n        \"@baseType\": \"Organization\",\r\n        \"@type\": \"ApplicationOwnerOrganization\",\r\n        \"taxNumber\": \"1234567899\"\r\n    }\r\n}",
+							"raw": "{\r\n    \"@type\": \"ApplicationOwner\",\r\n    \"gnpMetaData\": {\r\n        \"cspId\": \"{{cspId}}\",\r\n        \"aspId\": \"{{aspId}}\"\r\n    },\r\n    \"engagedParty\": {\r\n        \"@baseType\": \"Organization\",\r\n        \"@type\": \"ApplicationOwnerOrganization\",\r\n        \"taxNumber\": \"1234567899\"\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": {
-							"raw": "{{baseUrl}}/v2/operate/applicationOwner/{{aspId}}",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"v2",
-								"operate",
-								"applicationOwner",
-								"{{aspId}}"
-							]
-						}
+						"url": "{{baseUrl}}/v2/operate/applicationOwner/{{id}}"
 					},
 					"response": []
 				},
@@ -238,18 +221,7 @@
 								"type": "text"
 							}
 						],
-						"url": {
-							"raw": "{{baseUrl}}/v2/operate/applicationOwner/{{aspId}}",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"v2",
-								"operate",
-								"applicationOwner",
-								"{{aspId}}"
-							]
-						}
+						"url": "{{baseUrl}}/v2/operate/applicationOwner/{{id}}"
 					},
 					"response": []
 				},
@@ -288,17 +260,7 @@
 								"type": "text"
 							}
 						],
-						"url": {
-							"raw": "{{baseUrl}}/v2/operate/applicationOwner",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"v2",
-								"operate",
-								"applicationOwner"
-							]
-						}
+						"url": "{{baseUrl}}/v2/operate/applicationOwner"
 					},
 					"response": []
 				}
@@ -321,7 +283,7 @@
 									"});\r",
 									"\r",
 									"pm.test(\"approvalStatus is pendingApproval\", function () {\r",
-									"    pm.expect(json.approvalStatus).to.eql(\"pendingApproval\");\r",
+									"    pm.expect(json.approvalStatus).to.eql(\"approve\");\r",
 									"});\r",
 									"\r",
 									"pm.test(\"gnpMetaData.appId is echoed back\", function () {\r",
@@ -347,33 +309,18 @@
 								"key": "X-PLMN",
 								"value": "mnc={{mnc}},mcc={{mcc}}",
 								"type": "text"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"@baseType\": \"LogicalResource\",\r\n    \"@type\": \"Application\",\r\n    \"gnpMetaData\": {\r\n        \"cspId\": {{cspId}},\r\n        \"aspId\": {{aspId}},\r\n        \"appId\": {{appId}}\r\n    },\r\n    \"name\": \"Test Application Profile 2\",\r\n    \"applicationOwner\": {\r\n        \"@type\": \"PartyRoleRef\",\r\n        \"id\": {{aspId}}\r\n    },\r\n    \"category\": \"eventsAndEntertainment\",\r\n    \"commercialName\": \"Test Application Profile 2\",\r\n    \"description\": \"Test Application Profile 2 application\",\r\n    \"privacyPolicyURL\": \"https://1LThiQzd2.com\"\r\n}",
+							"raw": "{\r\n    \"@baseType\": \"LogicalResource\",\r\n    \"@type\": \"Application\",\r\n    \"gnpMetaData\": {\r\n        \"cspId\": \"{{cspId}}\",\r\n        \"aspId\": \"{{aspId}}\",\r\n        \"appId\": \"{{appId}}\"\r\n    },\r\n    \"name\": \"Test Application Profile 2\",\r\n    \"applicationOwner\": {\r\n        \"@type\": \"PartyRoleRef\",\r\n        \"id\": \"{{id}}\"\r\n    },\r\n    \"category\": \"eventsAndEntertainment\",\r\n    \"commercialName\": \"Test Application Profile 2\",\r\n    \"description\": \"Test Application Profile 2 application\",\r\n    \"privacyPolicyURL\": \"https://1LThiQzd2.com\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": {
-							"raw": "{{baseUrl}}/v2/operate/application",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"v2",
-								"operate",
-								"application"
-							]
-						}
+						"url": "{{baseUrl}}/v2/operate/application"
 					},
 					"response": []
 				},
@@ -412,30 +359,20 @@
 							{
 								"key": "Content-Type",
 								"value": "application/merge-patch+json",
-								"type": "text"
+								"type": "text",
+								"disabled": true
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"@type\": \"Application\",\r\n    \"gnpMetaData\": {\r\n        \"cspId\": {{cspId}},\r\n        \"aspId\": {{aspId}},\r\n        \"appId\": {{appId}}\r\n    },\r\n    \"name\": \"Test Application Profile New\",\r\n    \"commercialName\": \"Test Application Profile New\",\r\n    \"description\": \"Test Application Profile New application\"\r\n}",
+							"raw": "{\r\n    \"@type\": \"Application\",\r\n    \"gnpMetaData\": {\r\n        \"cspId\": \"{{cspId}}\",\r\n        \"aspId\": \"{{aspId}}\",\r\n        \"appId\": \"{{appId}}\"\r\n    },\r\n    \"name\": \"Test Number\",\r\n    \"commercialName\": \"Test Application Profile New\",\r\n    \"description\": \"Test Application Profile New application\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": {
-							"raw": "{{baseUrl}}/v2/operate/application/{{appId}}",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"v2",
-								"operate",
-								"application",
-								"{{appId}}"
-							]
-						}
+						"url": "{{baseUrl}}/v2/operate/application/{{id}}"
 					},
 					"response": []
 				},
@@ -467,25 +404,9 @@
 								"key": "X-PLMN",
 								"value": "mnc={{mnc}},mcc={{mcc}}",
 								"type": "text"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
 							}
 						],
-						"url": {
-							"raw": "{{baseUrl}}/v2/operate/application/{{appId}}",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"v2",
-								"operate",
-								"application",
-								"{{appId}}"
-							]
-						}
+						"url": "{{baseUrl}}/v2/operate/application/{{id}}"
 					},
 					"response": []
 				},
@@ -524,21 +445,40 @@
 								"type": "text"
 							}
 						],
-						"url": {
-							"raw": "{{baseUrl}}/v2/operate/application",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"v2",
-								"operate",
-								"application"
-							]
-						}
+						"url": "{{baseUrl}}/v2/operate/application"
 					},
 					"response": []
 				}
 			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "id",
+			"value": "2",
+			"type": "default"
 		}
 	]
 }

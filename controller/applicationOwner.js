@@ -19,7 +19,7 @@ module.exports = {
         newApplicationOwner.href = `/v2/operate/applicationOwner/${newApplicationOwner.id}`;
         
         applicationOwner.push(newApplicationOwner);
-        res.status(201).json(newApplicationOwner);
+        res.status(201).json({newApplicationOwner, approvalStatus: "approve"});
     },
     updateApplicationOwner: (req, res) => {
         const applicationOwnerById = applicationOwner.findIndex(item => item.id === parseInt(req.params.id));

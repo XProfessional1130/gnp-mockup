@@ -21,7 +21,7 @@ module.exports = {
         newApplication.href = `/v2/operate/application/${newApplication.id}`;
 
         application.push(newApplication);
-        res.status(201).json(newApplication);
+        res.status(201).json({newApplication, approvalStatus: "approve" });
     },
 
     updateApplication: (req, res) => {
